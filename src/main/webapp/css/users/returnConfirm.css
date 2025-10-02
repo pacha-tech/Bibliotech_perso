@@ -1,0 +1,104 @@
+#return-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.return-modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.return-close-btn {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.return-close-btn:hover,
+.return-close-btn:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+.return-modal-content h3 {
+    margin-top: 0;
+    color: #00000;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.return-modal-content p {
+    margin: 20px 0;
+    font-size: 1.1em;
+}
+
+.return-modal-content button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+
+}
+
+.return-modal-content .return-btn {
+    background-color: #137657;
+    color: white;
+}
+
+.return-modal-content .return-btn:hover {
+    background-color: #135776;
+}
+
+.return-modal-content button:not(.return-btn) {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.return-modal-content button:not(.return-btn):hover {
+    background-color: #e0e0e0;
+}
+
+.return-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

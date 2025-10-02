@@ -1,0 +1,64 @@
+-- Création de la base de données
+CREATE DATABASE IF NOT EXISTS bibliotheque_db;
+USE bibliotheque_db;
+
+-- Table des utilisateurs (admins + membres)
+CREATE TABLE users (
+    user_id VARCHAR(100) PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    surname VARCHAR(50) NOT NULL,
+    tel_num int NOT NULL,
+    email VARCHAR(30) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('ADMIN', 'MEMBER') NOT NULL,
+    registration_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table des livres
+CREATE TABLE books (
+    book_id VARCHAR(100) PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    year INT,
+    image VARCHAR(255),
+    category VARCHAR(255),
+    description TEXT,
+    status ENUM('disponible','emprunté'),
+    loan_count INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table des emprunts
+CREATE TABLE loans (
+    loan_id VARCHAR(100) PRIMARY KEY,
+    user_id VARCHAR(100) NOT NULL,
+    book_id VARCHAR(100) NOT NULL,
+    borrow_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    due_date DATE NOT NULL,
+    return_date TIMESTAMP NULL,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES books(book_id) ON DELETE CASCADE
+);
+
+-- Table des réservations
+CREATE TABLE reservations (
+    reservation_id VARCHAR(100) PRIMARY KEY,
+    user_id VARCHAR(100) NOT NULL,
+    book_id VARCHAR(100) NOT NULL,
+    reservation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('ACTIVE', 'CANCELLED', 'FULFILLED') DEFAULT 'ACTIVE',
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES books(book_id) ON DELETE CASCADE
+);
+
+-- Historique (ajouts et suppressions)
+CREATE TABLE history (
+    history_id VARCHAR(100) PRIMARY KEY,
+    user_id VARCHAR(100),
+    book_id VARCHAR(100),
+    action_type ENUM('ADD_USER', 'DELETE_USER', 'ADD_BOOK', 'DELETE_BOOK') NOT NULL,
+    action_description TEXT NOT NULL,
+    action_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE SET NULL,
+    FOREIGN KEY (book_id) REFERENCES books(book_id) ON DELETE SET NULL
+);

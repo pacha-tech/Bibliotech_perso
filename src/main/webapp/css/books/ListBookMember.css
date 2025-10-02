@@ -1,0 +1,311 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    margin-top: -50px;
+    padding-top: 100px;
+    color: #333;
+}
+
+.navbar {
+    background-color: #137657;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+
+.navbar-menu {
+    max-width: 1200px;
+    margin: 20px auto;
+    margin-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 70px;
+    background-color: #fff;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-menu form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-menu h1 {
+    color: #135776;
+}
+
+.navbar-menu p {
+    margin: 0;
+    font-weight: 500;
+    color: #555;
+}
+
+.navbar-menu select,
+.navbar-menu input[type="search"] {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease;
+}
+
+.navbar-menu select:focus,
+.navbar-menu input[type="search"]:focus {
+    outline: none;
+    border-color: #137657;
+}
+
+.navbar-menu button[type="submit"] {
+    background-color: #137657;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-menu button[type="submit"]:hover {
+    background-color: #10634a;
+}
+
+.header-container {
+    text-align: center;
+    flex-grow: 1;
+}
+
+.page-title {
+    color: #0000;
+    margin: 0;
+    font-size: 2rem;
+}
+
+.book-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 20px;
+    padding: 0 20px;
+    max-width: 1800px;
+    margin: 20px auto;
+}
+
+/* Carte de livre */
+.book-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Indispensable pour positionner l'icône de manière absolue */
+}
+
+.book-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+/* Conteneur image et icône */
+.image-And-icon-container {
+    position: relative; /* Indispensable pour positionner l'icône de manière absolue */
+    width: 100%;
+    padding-top: 140%; /* Pour un ratio 1:1.4 (hauteur / largeur), 140% de la largeur */
+    overflow: hidden;
+}
+
+/* Styles pour l'icône des trois points */
+.icon-container {
+    position: absolute;
+    top: 10px; /* Positionnement en haut */
+    right: 10px; /* Positionnement à droite */
+    z-index: 20; /* S'assure que l'icône est au-dessus de l'image et des détails */
+    opacity: 0; /* Initiallement invisible */
+    visibility: hidden; /* Cache l'icône par défaut */
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease; /* Transition douce */
+    background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent pour la visibilité */
+    padding: 8px 10px; /* Espace autour de l'icône */
+    border-radius: 5px; /* Coins arrondis pour l'icône */
+    cursor: pointer; /* Indique que c'est cliquable */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-card:hover .icon-container {
+    opacity: 1; /* Rendre l'icône visible au survol de la carte */
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.icon-container i {
+    color: white; /* Couleur de l'icône */
+    font-size: 1.2em; /* Taille de l'icône */
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3); /* Légère ombre pour le contraste */
+}
+
+.icon-container:hover {
+    background-color: rgba(0, 0, 0, 0.8); /* Changement de couleur au survol de l'icône */
+    transform: scale(1.1); /* Effet d'agrandissement au survol de l'icône */
+}
+
+/* Image de couverture du livre */
+.book-card-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+/* Détails initiaux du livre (toujours visibles) */
+.card-initial-details {
+    padding: 10px;
+    text-align: center;
+    background-color: #fdfdfd;
+}
+
+.card-title {
+    font-size: 1em;
+    margin: 0;
+    color: #2c3e50;
+    white-space: nowrap; /* Empêche le titre de se casser */
+    overflow: hidden; /* Cache le texte qui déborde */
+    text-overflow: ellipsis; /* Ajoute des points de suspension */
+}
+
+.card-year {
+    font-size: 0.8em;
+    color: #7f8c8d;
+    margin: 0;
+}
+
+/* Détails complets du livre (masqués par défaut, affichés via JS) */
+.card-full-details {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(46, 100, 155, 0.95); /* Fond semi-transparent */
+    color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    opacity: 0; /* Masqué par défaut */
+    visibility: hidden; /* Masqué par défaut */
+    transform: translateY(100%); /* Masqué par défaut (glisse de bas en haut) */
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out, visibility 0.4s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: scroll;
+    z-index: 15;
+}
+
+.card-full-details.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.card-full-details p {
+    margin-bottom: 5px;
+    font-size: 0.85em;
+}
+
+.card-full-details strong {
+    color: #ecf0f1;
+    font-weight: 600;
+}
+
+.empty-list-message {
+    text-align: center;
+    color: #888;
+    margin-top: 50px;
+    font-size: 1.2em;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.modal {
+    display: none;
+    position: absolute;
+    z-index: 100;
+    top: 100%;
+    right: -325px;
+    width: 400px;
+    background: transparent;
+    overflow: visible;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 12px;
+    width: 300px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease-in-out;
+    margin-top: 22px;
+}
+
+.message-container {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 100%;
+    height: 50px;
+    max-width: 800px;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    font-weight: bold;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.success {
+    background-color: #a5ddbd;;
+    color: #03471f;
+    height: 100%;
+    width: 100%;
+    border-radius: 15px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error {
+    background-color: #dab9b5;
+    color: #e40d0d;
+    height: 100%;
+    width: 100%;
+    border-radius: 15px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+

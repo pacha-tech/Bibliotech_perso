@@ -1,0 +1,28 @@
+INSERT INTO users (user_id, name, surname,tel_num, email, password, role)
+VALUES ('MEM001', 'Mike', 'Ken',679670590,'mikeken@gmail.com', 'mike', 'MEMBER');
+INSERT INTO users (user_id, name, surname,tel_num, email, password, role)
+VALUES ('MEM002', 'Rene', 'Loic',688000492, 'loicrene@gmail.com', 'mike', 'MEMBER');
+INSERT INTO users (user_id, name, surname,tel_num, email, password, role)
+VALUES ('admin', 'Admin', 'Principal', 656950045, 'bibliotech@gmail.com','admin', 'ADMIN');
+
+INSERT INTO books (book_id, title, author, year, image, category, description, status)
+VALUES ('B002', 'Football', 'Messi', 2025, 'les_miserables.jpg', 'Sport', 'Messi raconte sa vie de footballeur.', 'disponible');
+
+INSERT INTO reservations (user_id, book_id)
+VALUES ('MEM001', 'B001');
+INSERT INTO reservations (user_id, book_id)
+VALUES ('MEM002', 'B002');
+
+
+INSERT INTO loans (loan_id, user_id, book_id, due_date)
+VALUES ('L001', 'MEM001', 'B001', '2025-09-10');
+
+#135776        #137657    #007bff
+
+ALTER TABLE reservations ADD COLUMN expire_date TIMESTAMP;
+
+ALTER TABLE reservations
+MODIFY COLUMN status ENUM('ACTIVE', 'CANCELLED', 'FULFILLED', 'EXPIRED');
+
+ALTER TABLE reservations
+MODIFY reservation_id VARCHAR(30) NOT NULL;

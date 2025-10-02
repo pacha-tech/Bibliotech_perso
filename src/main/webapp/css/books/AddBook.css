@@ -1,0 +1,195 @@
+        
+        /* Styles Généraux du Corps */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        
+        .form-container {
+            width: 450px;
+            margin: 40px auto;
+            padding-left: 30px;
+            padding-bottom: 30px;
+            padding-right: 30px;
+            padding-top: 10px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+            display: none;
+            z-index: 1000;
+            position: fixed;
+            top: 5%;
+            left: 40%;
+        }
+
+        
+        .form-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.8em; 
+            font-weight: 700;
+        }
+
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group1 {
+            width: 300px;
+            margin-left: 220px;
+            margin-bottom: 15px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .form-group1 div {
+            height: 50px;
+        }
+
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #34495e;
+            font-weight: 600;
+            font-size: 0.9em;
+            text-align: left;
+        }
+
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dcdcdc;
+            border-radius: 6px; 
+            font-size: 0.95em;
+            color: #555;
+            background-color: #f8f8f8;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            outline: none;
+            background-color: #ffffff;
+        }
+
+       
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+    
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .radio-group input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #95a5a6;
+            border-radius: 50%;
+            position: relative;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .radio-group input[type="radio"]:checked {
+            border-color: #3498db;
+            background-color: #3498db;
+        }
+
+        .radio-group input[type="radio"]:checked::before {
+            content: '';
+            display: block;
+            width: 8px; 
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .radio-group label {
+            margin-bottom: 0;
+            cursor: pointer;
+            font-weight: normal;
+            font-size: 0.95em;
+        }
+
+        
+        .submit-button {
+            display: block;
+            width: 100%;
+            padding: 10px 20px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 3px 8px rgba(46, 204, 113, 0.25);
+        }
+
+        .submit-button:hover {
+            background-color: #27ae60;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.35);
+        }
+
+        #year {
+            max-width: 100px;
+        }
+
+        #category {
+            max-width: 180px;
+        }
+
+        .annuler {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #f44336;
+            color: white;
+            margin-left: 10px;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .annuler:hover {
+            background-color: #e53935;
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.35);
+        }
+
+        i {
+            cursor: pointer;
+            size: 50px;
+            margin-top: 0px;
+            margin-left: 0px; 
+        }

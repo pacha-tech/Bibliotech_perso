@@ -1,0 +1,320 @@
+/* Styles généraux */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 0;
+    overflow-x: hidden;
+}
+
+/* Navbar de recherche et filtre */
+.navbar-menu {
+    width: 80%; /* Corrigé, car la valeur de 110% cause un défilement horizontal */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 30px;
+    height: 50px;
+    background-color: #e9ecef;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    margin-top: 80px;
+    margin-left: 145px;
+}
+
+.navbar-menu form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.navbar-menu select,
+.navbar-menu input[type="search"] {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.navbar-menu input[type="submit"] {
+    background-color: #137657;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-menu input[type="submit"]:hover {
+    background-color: #135776;
+}
+
+.page-title {
+    text-align: center;
+    color: #137657;
+    margin-bottom: 20px;
+    font-size: 2.2em;
+    font-weight: 600;
+}
+
+/* Grille des livres */
+.book-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+/* Carte de livre */
+.book-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.book-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+/* Conteneur image et icône */
+.image-And-icon-container {
+    position: relative;
+    width: 100%;
+    padding-top: 140%;
+    overflow: hidden;
+}
+
+/* Icône des 3 points */
+.icon-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 8px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 20;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 8px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book-card:hover .icon-container{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.book-card:hover .delete{
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.icon-container i {
+    color: white;
+    font-size: 1.2em;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.delete i{
+    color: white;
+    font-size: 1.2em;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.icon-container:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+}
+
+.book-card-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+/* Détails initiaux du livre (toujours visibles) */
+.card-initial-details {
+    padding: 10px;
+    text-align: center;
+    background-color: #fdfdfd;
+}
+
+.card-title {
+    font-size: 1em;
+    margin: 0;
+    color: #2c3e50;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-status {
+    font-size: 0.8em;
+    color: #7f8c8d;
+    margin: 0;
+}
+
+/* Détails complets du livre (masqués par défaut) */
+.card-full-details {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(46, 100, 155, 0.95);
+    color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(100%);
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out, visibility 0.4s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: scroll;
+    z-index: 15;
+}
+
+.card-full-details.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.card-full-details p {
+    margin-bottom: 5px;
+    font-size: 0.85em;
+}
+
+.card-full-details strong {
+    color: #ecf0f1;
+    font-weight: 600;
+}
+
+/* Message si la liste est vide */
+.empty-list-message {
+    text-align: center;
+    color: #888;
+    margin-top: 50px;
+    font-size: 1.2em;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Bouton "Ajouter un livre" */
+.add-student-button {
+    display: block;
+    width: fit-content;
+    padding: 12px 25px;
+    margin: 40px auto;
+    background-color: #2ecc71;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-student-button:hover {
+    background-color: #27ae60;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 500;
+}
+
+
+.message-container {
+    position: fixed;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 100%;
+    /*height: 50px;*/
+    max-width: 800px;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    font-weight: bold;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.success {
+    background-color: #a5ddbd;
+    color: #03471f;
+    height: 100%;
+    width: 100%;
+    border-radius: 15px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error {
+    background-color: #dab9b5;
+    color: #e40d0d;
+    height: 100%;
+    width: 100%;
+    border-radius: 15px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
