@@ -3,6 +3,7 @@ package com.tp.controller.books;
 import com.tp.dao.DAOFactory;
 import com.tp.model.User;
 import com.tp.service.BookService;
+import com.tp.service.DeleteImage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/deleteBook")
 public class DeleteBookController extends HttpServlet {
@@ -20,13 +22,14 @@ public class DeleteBookController extends HttpServlet {
     private static final Logger logger = LoggerFactory.getLogger(DeleteBookController.class);
 
     private BookService bookService;
+    private DeleteImage delete;
 
     public void init() {
         DAOFactory daoFactory = DAOFactory.getInstance();
         this.bookService = new BookService(daoFactory);
+        this.delete = new DeleteImage();
         logger.info("DeleteBookController initialisé.");
     }
-
 
     protected void doGet(HttpServletRequest request , HttpServletResponse response) throws ServletException , IOException {
         logger.info("Requête de suppression de livre reçue.");
@@ -42,13 +45,18 @@ public class DeleteBookController extends HttpServlet {
         }
 
         try {
-            logger.info("Tentative de suppression du livre avec l'ID : {}", bookId);
-            bookService.deleteBook(bookId);
+            boolean imageDeleted = delete.delete(bookId , getServletContext());  // suppression de l'image du livre sur le disque
+            if(imageDeleted){
+                logger.info("Image du livre supprimer avec succes");
+            }else {
+                logger.info("Erreur lors de la suppression de l'image du livre");
+            }
 
+            bookService.deleteBook(bookId);  //suppression dans la BD
             logger.info("Livre avec l'ID {} supprimé avec succès.", bookId);
             session.setAttribute("succes", "Livre supprimé avec succès.");
-            
-        } catch (Exception e) {
+
+        } catch (SQLException e) {
             logger.error("Erreur lors de la suppression du livre avec l'ID : {}.", bookId, e);
             session.setAttribute("error", "Erreur lors de la suppression.");
         }

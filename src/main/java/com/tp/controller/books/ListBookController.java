@@ -39,7 +39,7 @@ public class ListBookController extends HttpServlet {
             return;
         }
 
-        List<Book> books = new ArrayList<>();
+        List<Book> books;
         String searchType = request.getParameter("searchType");
         String searchValue = request.getParameter("searchValue");
         String filterType = request.getParameter("filterType");

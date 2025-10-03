@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -87,7 +88,7 @@ public class UpdateStatusBookController extends HttpServlet {
 
             try {
                 bookService.AddLoanCountOfBook(bookId);
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 System.out.println("Erreur lors de l'incrementation du loan_count dans la table book");
                 throw new RuntimeException(e);
             }

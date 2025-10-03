@@ -14,6 +14,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.Year; // Importation pour obtenir l'année actuelle
 
 @WebServlet("/addBook")
@@ -108,7 +109,7 @@ public class AddBookController extends HttpServlet {
                 bookService.addBook(book);
                 logger.info("livre ajouter avec succes");
                 session.setAttribute("succes", "Livre ajouté avec succès.");
-            } catch (Exception e) {
+            } catch (SQLException e) {
                 logger.error("Erreur lors de l'ajout du livre");
                 session.setAttribute("error", "Erreur lors de l'ajout du livre.");
             }

@@ -3,23 +3,24 @@ package com.tp.dao.interfaces;
 
 import com.tp.model.Book;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface BookDAO {
-    void AddBook(Book book) throws Exception;
-    List<Book> findByTitle(String title) throws Exception;
-    List<Book> findByYear(int year) throws Exception;
-    List<Book> findByAuthor(String author) throws Exception;
-    List<Book> findByCategory(String category) throws Exception;
-    List<Book> findByDisponible() throws Exception;
-    List<Book> findByEmprunter() throws Exception;
-    List<Book> findByPopularity();
-    List<Book> findByRecent();
-    List<Book> findByOld();
-    List<Book> getAllBooks() throws Exception ;
-    void DeleteBook(String book_id) throws Exception;
-    void updateBook(Book book) throws Exception;
-    Book getBook(String book_id) throws Exception;
-    boolean updateBookStatus(String bookId, String status);
-    void AddLoanCountOfBook(String book_id) throws Exception;
+    void AddBook(Book book) throws SQLException;
+    List<Book> findByTitle(String title) throws SQLException;
+    List<Book> findByYear(int year) throws SQLException;
+    List<Book> findByAuthor(String author) throws SQLException;
+    List<Book> findByCategory(String category) throws SQLException;
+    List<Book> findByDisponible() throws SQLException;
+    List<Book> findByEmprunter() throws SQLException;
+    List<Book> findByPopularity() throws SQLException;
+    List<Book> findByRecent() throws SQLException;
+    List<Book> findByOld() throws SQLException;
+    List<Book> getAllBooks() throws SQLException ;
+    void DeleteBook(String book_id) throws SQLException;
+    void updateBook(Book book) throws SQLException;
+    Book getBook(String book_id) throws SQLException;
+    boolean updateBookStatus(String bookId, String status) throws SQLException;
+    void AddLoanCountOfBook(String book_id) throws SQLException;
 }
