@@ -22,5 +22,5 @@ public interface BookDAO {
     void updateBook(Book book) throws SQLException;
     Book getBook(String book_id) throws SQLException;
     boolean updateBookStatus(String bookId, String status) throws SQLException;
-    void AddLoanCountOfBook(String book_id) throws SQLException;
+    boolean AddLoanCountOfBook(String book_id) throws SQLException;
 }

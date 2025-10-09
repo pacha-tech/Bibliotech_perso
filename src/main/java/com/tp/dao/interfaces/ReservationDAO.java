@@ -2,6 +2,7 @@ package com.tp.dao.interfaces;
 
 import com.tp.model.Reservation;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,4 +23,5 @@ public interface ReservationDAO {
     int countReservations();
     boolean isTwoReservationByBook(String user_id , String book_id);
     Reservation getFirstReservation(String book_id);
+    boolean isBookReservedBy(String user_id , String book_id) throws SQLException;
 }

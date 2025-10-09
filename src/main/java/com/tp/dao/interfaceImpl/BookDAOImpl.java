@@ -424,15 +424,17 @@ public class BookDAOImpl implements BookDAO {
     }
 
     @Override
-    public void AddLoanCountOfBook(String book_id) {
+    public boolean AddLoanCountOfBook(String book_id) {
         String sql = "UPDATE books SET loan_count = loan_count + 1 WHERE book_id = ?";
         try (Connection connection = daoFactory.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, book_id);
-            stmt.executeUpdate();
+            int rowsAffected = stmt.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
             System.err.println("Erreur lors de l'incrémentation du nombre de prêts : " + e.getMessage());
             e.printStackTrace();
+            return false;
         }
     }
 }

@@ -2,6 +2,7 @@ package com.tp.dao.interfaces;
 
 import com.tp.model.Loan;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,6 +19,6 @@ public interface LoanDAO {
     List<Loan> findByBooktitleAndByUser(String book_title , String user_id) throws Exception;
     boolean updateLoanReturnDate(String loanId, LocalDateTime returnDate);
     Loan getLoanById(String loanId);
-    boolean isBookBorrowedBy(String user_id , String book_id);
+    boolean isBookBorrowedBy(String user_id , String book_id) throws SQLException;
     boolean countLoanByUser(String user_id) throws Exception;
 }

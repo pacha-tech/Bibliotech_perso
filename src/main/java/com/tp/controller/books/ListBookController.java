@@ -2,8 +2,10 @@ package com.tp.controller.books;
 
 import com.tp.dao.DAOFactory;
 import com.tp.model.Book;
+import com.tp.model.Reservation;
 import com.tp.model.User;
 import com.tp.service.BookService;
+import com.tp.service.LoanService;
 import com.tp.service.ReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,18 +17,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/listBooks")
 public class ListBookController extends HttpServlet {
 
     private BookService bookService;
+    private LoanService loanService;
+    private ReservationService reservationService;
     private static final Logger logger = LoggerFactory.getLogger(ListBookController.class);
 
     public void init() {
         DAOFactory daoFactory = DAOFactory.getInstance();
         bookService = new BookService(daoFactory);
+        loanService = new LoanService(daoFactory);
+        reservationService = new ReservationService(daoFactory);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,7 +48,7 @@ public class ListBookController extends HttpServlet {
             return;
         }
 
-        List<Book> books;
+        List<Book> books = List.of();
         String searchType = request.getParameter("searchType");
         String searchValue = request.getParameter("searchValue");
         String filterType = request.getParameter("filterType");
@@ -96,6 +105,25 @@ public class ListBookController extends HttpServlet {
         }
 
         if ("MEMBER".equals(currentUser.getRole())) {
+            Map<String , Boolean> loanedStatusMap = new HashMap<>();
+            Map<String , Boolean> reservedStatusMap = new HashMap<>();
+            String user_id = currentUser.getUser_id();
+            for(Book book : books){
+                try {
+                    boolean isBorrowBy = loanService.isBookBorrowedBy(user_id , book.getId_Book());
+                    loanedStatusMap.put(book.getId_Book() , isBorrowBy);
+
+                    boolean isReservedBy = reservationService.isBookReservedBy(user_id , book.getId_Book());
+                    reservedStatusMap.put(book.getId_Book() , isReservedBy);
+                }catch (SQLException e) {
+                    logger.error("Erreur de vérification de status pour le livre {}: {}", book.getId_Book(), e.getMessage());
+                    loanedStatusMap.put(book.getId_Book(), false);
+                    reservedStatusMap.put(book.getId_Book(), false);
+                }
+            }
+
+            request.setAttribute("loanedStatusMap", loanedStatusMap);
+            request.setAttribute("reservedStatusMap", reservedStatusMap);
             request.setAttribute("activePage", "livres");
             this.getServletContext().getRequestDispatcher("/WEB-INF/Vues/books/ListBookMember.jsp").forward(request, response);
         } else if ("ADMIN".equals(currentUser.getRole())) {

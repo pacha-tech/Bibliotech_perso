@@ -5,6 +5,7 @@ import com.tp.dao.interfaces.ReservationDAO;
 import com.tp.model.Reservation;
 import com.tp.model.generateID.GenerateReservationID;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.time.LocalDateTime;
 
@@ -26,7 +27,7 @@ public class ReservationService {
         return reservationDAO.addReservation(reservation);
     }
 
-    public int createReservationForInt(String userId , String bookId){
+    public int createReservationForInt(String userId , String bookId) throws SQLException {
         GenerateReservationID generator = new GenerateReservationID();
         String reservationId = generator.generateID();
 
@@ -49,6 +50,7 @@ public class ReservationService {
 
         }
     }
+
 
     public boolean updateReservationStatus(String reservationId, String newStatus) {
         Reservation reservation = reservationDAO.findById(reservationId);
@@ -135,5 +137,9 @@ public class ReservationService {
 
     public Reservation getFirstReservation(String book_id){
         return reservationDAO.getFirstReservation(book_id);
+    }
+
+    public boolean isBookReservedBy(String user_id , String book_id) throws SQLException {
+        return reservationDAO.isBookReservedBy(user_id , book_id);
     }
 }

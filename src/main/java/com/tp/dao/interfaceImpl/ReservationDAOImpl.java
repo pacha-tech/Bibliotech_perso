@@ -421,4 +421,22 @@ public class ReservationDAOImpl implements ReservationDAO {
         }
         return null;
     }
+
+    @Override
+    public boolean isBookReservedBy(String user_id, String book_id) throws SQLException {
+        String query = "SELECT COUNT(*) FROM reservations WHERE book_id = ? AND user_id = ? AND status = 'ACTIVE' ";
+        try (Connection conn = daoFactory.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, book_id);
+            stmt.setString(2, user_id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

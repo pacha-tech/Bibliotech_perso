@@ -76,8 +76,8 @@ public class BookService {
         return bookDao.updateBookStatus(bookId, status);
     }
 
-    public void AddLoanCountOfBook(String book_id) throws SQLException {
-        bookDao.AddLoanCountOfBook(book_id);
+    public boolean AddLoanCountOfBook(String book_id) throws SQLException {
+        return bookDao.AddLoanCountOfBook(book_id);
     }
     public String getPathBookImage(String book_id) throws SQLException {
         Book book = bookDao.getBook(book_id);

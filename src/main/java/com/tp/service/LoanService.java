@@ -4,6 +4,7 @@ import com.tp.dao.DAOFactory;
 import com.tp.dao.interfaces.LoanDAO;
 import com.tp.model.Loan;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,21 +15,13 @@ public class LoanService {
         this.loanDAO = daoFactory.getLoanDAO();
     }
 
-    public int AddLoan(Loan loan) throws Exception {
-        if(loanDAO.countLoanByUser(loan.getUser_id())){
-            return 0 ; //l'utilisateur a deja trois emprunt en cours
-        }else if(loanDAO.AddLoan(loan)){
-            return 1;   //l'utilisateur n'a pas trois emprunt  en cours
-        }else {
-            return 2;  //Erreur interne
-        }
+    public boolean AddLoan(Loan loan) throws Exception {
+        return loanDAO.AddLoan(loan);
     }
 
-    /*
-    public void DeleteLoan(String loan_id) throws Exception {
-        loanDAO.DeleteLoan(loan_id);
+    public boolean CountLoanByUser(String user_id) throws Exception {
+        return loanDAO.countLoanByUser(user_id);
     }
-    */
 
     public List<Loan> getAllLoansByUser(String user_id) throws Exception {
         return loanDAO.getAllLoansByUser(user_id);
@@ -74,7 +67,7 @@ public class LoanService {
         return loanDAO.getLoanById(loanId);
     }
 
-    public boolean isBookBorrowedBy(String user_id , String book_id){
+    public boolean isBookBorrowedBy(String user_id , String book_id) throws SQLException {
         return loanDAO.isBookBorrowedBy(user_id , book_id);
     }
 }
